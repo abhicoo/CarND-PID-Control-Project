@@ -1,22 +1,29 @@
 #ifndef PID_H
 #define PID_H
+#include "Twiddle.h"
+#include<cmath>
+#include <vector>
+#include<iostream>
 
 class PID {
 public:
   /*
   * Errors
   */
-  double p_error;
-  double i_error;
-  double d_error;
+  double p_error = 0;
+  double i_error = 0;
+  double d_error = 0;
+  double total_error = 0;
 
   /*
   * Coefficients
   */ 
   double Kp;
-  double Ki;
   double Kd;
-
+  double Ki;
+ 
+  std::vector<double> dp;
+  Twiddle twiddle;
   /*
   * Constructor
   */
@@ -30,7 +37,7 @@ public:
   /*
   * Initialize PID.
   */
-  void Init(double Kp, double Ki, double Kd);
+  void Init(double Kp, double Kd, double Ki);
 
   /*
   * Update the PID error variables given cross track error.
